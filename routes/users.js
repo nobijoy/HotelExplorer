@@ -4,26 +4,29 @@ import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
+// router.get("/checkauthentication", verifyToken, (req, res, next)=> {
+//     res.send("hello user you are logged in");
+// });
 
-router.get("/checkauthentication", verifyToken, (req, res, next)=> {
-    res.send("hello user you are logged in");
-});
+// router.get("/checkuser/:id", verifyUser, (req, res, next)=> {
+//     res.send("hello user you are logged in and you can delete this account");
+// });
 
-router.get("/checkuser/:id", verifyUser, (req, res, next)=> {
-    res.send("hello user you are logged in and you can delete this account");
-});
+// router.get("/checkadmin/:id", verifyAdmin, (req, res, next)=> {
+//     res.send("hello admin you are logged in and you can delete this account");
+// });
 
-router.get("/checkadmin/:id", verifyAdmin, (req, res, next)=> {
-    res.send("hello admin you are logged in and you can delete this account");
-});
+// get all users
+router.get('/',verifyAdmin, getUsers);
 
-router.get('/', getUsers);
+// get single user 
+router.get('/:id', verifyUser, getUser);
 
-router.get('/:id', getUser);
+// update user
+router.put('/:id', verifyUser, updateUser);
 
-router.put('/:id', updateUser);
-
-router.delete('/:id', deleteUser);
+// delete users
+router.delete('/:id',verifyUser, deleteUser);
 
 
 export default router;
